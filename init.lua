@@ -563,12 +563,14 @@ require('lazy').setup({
                 checkThirdParty = false,
                 -- Tells lua_ls where to find all the Lua files that you have loaded
                 -- for your neovim configuration.
-                library = {
-                  '${3rd}/luv/library',
-                  unpack(vim.api.nvim_get_runtime_file('', true)),
-                },
+                -- library = {
+                --   '${3rd}/luv/library',
+                --   unpack(vim.api.nvim_get_runtime_file('', true)),
+                -- },
                 -- If lua_ls is really slow on your computer, you can try this instead:
-                -- library = { vim.env.VIMRUNTIME },
+                library = { vim.env.VIMRUNTIME },
+                maxPreload = 100000,
+                preLoadFileSize = 10000,
               },
               completion = {
                 callSnippet = 'Replace',
@@ -785,6 +787,11 @@ require('lazy').setup({
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       --
+      --  Add cursor animation
+      --  TODO: Tweak with it a bit as it is right now is a bit slow
+      --
+      -- require('mini.animate').setup {}
+
       --  Removed for now
       -- local statusline = require 'mini.statusline'
       -- -- set use_icons to true if you have a Nerd Font
