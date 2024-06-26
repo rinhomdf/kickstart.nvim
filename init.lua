@@ -550,6 +550,28 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        yamlls = {
+          settings = {
+            yaml = {
+              validate = true,
+              -- disable the schema store
+              schemaStore = {
+                enable = false,
+                url = '',
+              },
+              -- specify the schema manually
+              schemas = {
+                kubernetes = '/*.yaml',
+                ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*.{yml,yaml}',
+                ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
+                ['http://json.schemastore.org/chart'] = 'Chart.{yml,yaml}',
+                ['https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json'] = '*api*.{yml,yaml}',
+                ['http://json.schemastore.org/kustomization'] = 'kustomization.{yml,yaml}',
+              },
+            },
+          },
+        },
+        terraformls = {}, -- Terraform LSP
 
         lua_ls = {
           -- cmd = {...},
