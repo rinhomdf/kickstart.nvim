@@ -581,8 +581,8 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         ansiblels = {},
-        -- clangd = {},
-        -- gopls = {},
+        clangd = {},
+        gopls = {},
         gitlab_ci_ls = {},
         pyright = {},
         -- pylsp = {},
@@ -617,6 +617,7 @@ require('lazy').setup({
           },
         },
         terraformls = {}, -- Terraform LSP
+        jsonls = {}, -- JSON LSP
 
         vacuum = {
           cmd = { 'vacuum', 'language-server' },
@@ -688,6 +689,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'clang-format', -- Used to format C/C++ code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -724,7 +726,8 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
-        rust = { 'rustfmt' },
+        -- rust = { 'rustfmt' },
+        clangd = { 'clang-format' },
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
@@ -843,6 +846,13 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
